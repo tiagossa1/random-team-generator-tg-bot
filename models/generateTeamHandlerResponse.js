@@ -1,6 +1,6 @@
 class GenerateTeamHandlerResponse {
-  constructor(error = null, data = null, success = null) {
-    this.success = success ?? error.length === 0;
+  constructor({ error = null, data = null, success = null }) {
+    this.success = success ?? !error;
     this.error = error;
     this.data = data;
   }

@@ -1,22 +1,17 @@
 import winston, { format } from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
+import getEnvironmentVariables from "./environment.js";
 
-import * as dotenv from "dotenv";
-dotenv.config();
+const { language, timeZone, isProduction } = getEnvironmentVariables();
 
 const timeZoneFormat = () => {
-  const LANGUAGE = process.env.LANGUAGE;
-  const TIMEZONE = process.env.TIMEZONE;
-
-  if (!LANGUAGE || !TIMEZONE) return new Date().toLocaleString();
-
-  return new Date().toLocaleString(LANGUAGE, {
-    timeZone: TIMEZONE,
+  return new Date().toLocaleString(language, {
+    timeZone: timeZone,
   });
 };
 
 const logger = winston.createLogger({
-  level: "info",
+  level: isProduction ? "info" : "debug",
   format: winston.format.json(),
   transports: [
     new DailyRotateFile({
