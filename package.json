@@ -1,11 +1,12 @@
 {
-  "name": "random-team-generator-tg-bot",
+  "name": "football-team-generator-tg-bot",
   "version": "1.0.0",
-  "description": "Telegram bot to randomize two football teams",
+  "description": "Telegram bot to randomize two or more football teams.",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -19,9 +19,11 @@
 - **ALLOWED_IDS**: List of user/chat ids that are allowed to use this bot. **This list MUST be separated by a comma.** To find your user ID, use @userinfobot on Telegram. 
 - **TEAM_PLAYERS**: List of player names to generate the teams. **This list MUST be separated by a comma.**
 - **GENERATE_COMMAND**: Command keyword for generate command.
+- **TIMEZONE**: Time zone string. You can find [here](https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a) all of the time zones.
+- **LANGUAGE**: Full language code. e.g. en-US.
 
 ## Bot commands
-- /[whatever you pass in GENERATE_COMMAND] [number of teams] [player names to ignore separated by space].
+- /[GENERATE_COMMAND] [number of teams] [player names to ignore separated by space].
 
 ## Install
 
