@@ -1,8 +1,7 @@
 FROM node:16
 
 # Arguments
-ARG IS_PRODUCTION=false
-ENV is_production $IS_PRODUCTION
+ARG IS_PRODUCTION
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -12,7 +11,7 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN if IS_PRODUCTION ; then npm ci --only=production ; else npm install ; fi
+RUN if $IS_PRODUCTION ; then npm ci --only=production ; else npm install ; fi
 
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -22,4 +21,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "node", "index.js" ]
+CMD node index.js
