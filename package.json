@@ -1,0 +1,27 @@
+{
+  "name": "random-team-generator-tg-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot to randomize two football teams",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiagossa1/random-team-generator-tg-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiagossa1/random-team-generator-tg-bot/issues"
+  },
+  "homepage": "https://github.com/tiagossa1/random-team-generator-tg-bot#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "node-telegram-bot-api": "^0.59.0",
+    "nodemon": "^2.0.20",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
+  }
+}
