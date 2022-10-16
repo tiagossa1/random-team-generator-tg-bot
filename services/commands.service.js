@@ -39,7 +39,7 @@ const onGenerateTeamHandler = (request) => {
     );
   }
 
-  let teams = generateTeam(request.numberOfTeams, teamPlayersToUse);
+  let teams = generateTeam(request.numberOfTeams, teamPlayersToUse, request.playersToIgnore);
 
   return new GenerateTeamHandlerResponse(
     null,

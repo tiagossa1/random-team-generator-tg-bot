@@ -5,7 +5,7 @@ import {
 
 const NO_TEAM = "De fora";
 
-const generateTeam = (numberOfTeams, teamPlayers) => {
+const generateTeam = (numberOfTeams, teamPlayers, noTeamPlayers) => {
   const copyTeamPlayers = [...teamPlayers];
   const numberOfPlayers = copyTeamPlayers.length;
   // PlayersForEachTeam is round down to avoid decimal numbers and to generate players that do NOT have a team.
@@ -32,13 +32,15 @@ const generateTeam = (numberOfTeams, teamPlayers) => {
       copyTeamPlayers.splice(randomIndex, 1);
     }
 
-    const teamName = `Equipa ${getAlphabetCharacterBasedOnNumber(noTeamsIndex)}`;
+    const teamName = `Equipa ${getAlphabetCharacterBasedOnNumber(
+      noTeamsIndex
+    )}`;
     teams[teamName] = playersForTeam;
   }
 
   // Check if the original array still has players. If so, they will be put on a 'No Team' array.
-  if (copyTeamPlayers.length > 0) {
-    teams[NO_TEAM] = copyTeamPlayers;
+  if (copyTeamPlayers.length > 0 || noTeamPlayers.length > 0) {
+    teams[NO_TEAM] = [...(copyTeamPlayers ?? []), ...(noTeamPlayers ?? [])];
   }
 
   return teams;
