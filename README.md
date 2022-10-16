@@ -15,14 +15,16 @@
 > Telegram bot to randomize two or more football teams.
 
 ## Environment variables
+
 - **TOKEN**: Telegram bot token. For this token, create a bot using @BotFather on Telegram.
-- **ALLOWED_IDS**: List of user/chat ids that are allowed to use this bot. **This list MUST be separated by a comma.** To find your user ID, use @userinfobot on Telegram. 
+- **ALLOWED_IDS**: List of user/chat ids that are allowed to use this bot. **This list MUST be separated by a comma.** To find your user ID, use @userinfobot on Telegram.
 - **TEAM_PLAYERS**: List of player names to generate the teams. **This list MUST be separated by a comma.**
 - **GENERATE_COMMAND**: Command keyword for generate command.
 - **TIMEZONE**: Time zone string. You can find [here](https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a) all of the time zones.
 - **LANGUAGE**: Full language code. e.g. en-US.
 
 ## Bot commands
+
 - /[GENERATE_COMMAND] [number of teams] [player names to ignore separated by space].
 
 ## Install
@@ -43,11 +45,25 @@ npm run dev
 npm test
 ```
 
+## Deploy
+
+## Build
+
+```sh
+docker build . -t [name] --build-arg IS_PRODUCTION=[false/true]
+```
+
+## Run
+
+```sh
+docker run -p 49160:8080 -d [name]
+```
+
 ## Author
 
 👤 **Tiago Sá**
 
-* Github: [@tiagossa1](https://github.com/tiagossa1)
+- Github: [@tiagossa1](https://github.com/tiagossa1)
 
 ## 🤝 Contributing
 
@@ -62,5 +78,6 @@ Give a ⭐️ if this project helped you!
 Copyright © 2022 [Tiago Sá](https://github.com/tiagossa1).<br />
 This project is [ISC](https://github.com/tiagossa1/random-team-generator-tg-bot/blob/master/LICENSE) licensed.
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
