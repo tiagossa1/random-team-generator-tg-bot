@@ -12,9 +12,16 @@
   </a>
 </p>
 
-> Telegram bot to randomize two football teams
+> Telegram bot to randomize two or more football teams.
 
-### 🏠 [Homepage](https://github.com/tiagossa1/random-team-generator-tg-bot#readme)
+## Environment variables
+- **TOKEN**: Telegram bot token. For this token, create a bot using @BotFather on Telegram.
+- **ALLOWED_IDS**: List of user/chat ids that are allowed to use this bot. **This list MUST be separated by a comma.** To find your user ID, use @userinfobot on Telegram. 
+- **TEAM_PLAYERS**: List of player names to generate the teams. **This list MUST be separated by a comma.**
+- **GENERATE_COMMAND**: Command keyword for generate command.
+
+## Bot commands
+- /[whatever you pass in GENERATE_COMMAND] [number of teams] [player names to ignore separated by space].
 
 ## Install
 

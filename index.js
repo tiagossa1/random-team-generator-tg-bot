@@ -8,6 +8,7 @@ import UserInformation from "./models/userInformation.js";
 import { onGenerateTeamHandler } from "./services/commands.service.js";
 
 const TOKEN = process.env.TOKEN;
+const GENERATE_COMMAND = process.env.GENERATE_COMMAND ?? "generate";
 
 const bot = new TelegramBot(TOKEN, { polling: true });
 
@@ -15,7 +16,9 @@ bot.on("polling_error", (error) => {
   logger.error("There was an error receiving/sending a message: " + error);
 });
 
-bot.onText(/\/gerar (\d+)(\s)?(.+)?/, (msg, match) => {
+const generateTeamRegEx = new RegExp(`/${GENERATE_COMMAND} (\\d+)(\\s)?(.+)?`);
+
+bot.onText(generateTeamRegEx, (msg, match) => {
   const userInformation = new UserInformation(
     msg.from?.id,
     msg.from?.username,
@@ -30,7 +33,7 @@ bot.onText(/\/gerar (\d+)(\s)?(.+)?/, (msg, match) => {
     msg.chat.id,
     userInformation,
     numberOfTeams,
-    playersToIgnore,
+    playersToIgnore
   );
 
   logger.info(
