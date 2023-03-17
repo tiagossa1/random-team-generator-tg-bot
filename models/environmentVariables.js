@@ -1,3 +1,5 @@
+import PlayerInfo from "./playerInfo.js";
+
 class EnvironmentVariables {
   constructor(
     token,
@@ -10,9 +12,9 @@ class EnvironmentVariables {
   ) {
     this.token = token;
     this.allowedIds = (allowedIds ?? []).split(",").map((id) => Number(id));
-    this.teamPlayers = (teamPlayers ?? [])
-      .split(",")
-      .map((teamPlayer) => teamPlayer);
+    this.teamPlayers = JSON.parse(teamPlayers).map(
+      (teamPlayer) => new PlayerInfo(teamPlayer.name, teamPlayer.rating)
+    );
     this.generateCommand = generateCommand ?? "generate";
     this.timeZone = timeZone ?? "Etc/UTC";
     this.language = language ?? "en-US";

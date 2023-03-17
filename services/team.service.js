@@ -1,49 +1,53 @@
-import {
-  randomBetween,
-  getAlphabetCharacterBasedOnNumber,
-} from "../utils/number.utils.js";
+import { getAlphabetCharacterBasedOnNumber } from "../utils/number.utils.js";
+
+import _ from "lodash";
 
 const NO_TEAM = "De fora";
 
-const generateTeam = (numberOfTeams, teamPlayers, noTeamPlayers) => {
-  const copyTeamPlayers = [...teamPlayers];
-  const numberOfPlayers = copyTeamPlayers.length;
-  // PlayersForEachTeam is round down to avoid decimal numbers and to generate players that do NOT have a team.
-  const playersForEachTeam = Math.floor(numberOfPlayers / numberOfTeams);
+const generateTeam = (numberOfTeams, teamPlayers, playersToIgnore) => {
+  // Sort players by rating in descending order
+  const sortedPlayers = _(teamPlayers)
+    .sortBy((player) => player.rating)
+    .value();
 
-  let teams = {};
-
-  for (let noTeamsIndex = 0; noTeamsIndex < numberOfTeams; noTeamsIndex++) {
-    let playersForTeam = [];
-
-    for (
-      let playersForEachTeamIndex = 0;
-      playersForEachTeamIndex < playersForEachTeam;
-      playersForEachTeamIndex++
-    ) {
-      // 1 - Generate a VALID index based on copyTeamPlayers' length.
-      // 2 - Get the players based on the generated index.
-      // 3 - Push into the array.
-      // 4 - Remove that player from copyTeamPlayers' array based on 1. index.
-      const randomIndex = randomBetween(0, copyTeamPlayers.length - 1);
-      const playerForTeam = copyTeamPlayers[randomIndex];
-
-      playersForTeam.push(playerForTeam);
-      copyTeamPlayers.splice(randomIndex, 1);
-    }
-
-    const teamName = `Equipa ${getAlphabetCharacterBasedOnNumber(
-      noTeamsIndex
-    )}`;
-    teams[teamName] = playersForTeam;
+  const teams = [];
+  for (let i = 0; i < numberOfTeams; i++) {
+    teams.push([]);
   }
 
-  // Check if the original array still has players. If so, they will be put on a 'No Team' array.
-  if (copyTeamPlayers.length > 0 || noTeamPlayers.length > 0) {
-    teams[NO_TEAM] = [...(copyTeamPlayers ?? []), ...(noTeamPlayers ?? [])];
+  // Assign players to teams based on the lowest total rating
+  while (sortedPlayers.length > 0) {
+    // Find the team with the lowest total rating
+    const lowestTeam = teams.reduce((prev, curr) => {
+      return prev.reduce((total, p) => total + p.rating, 0) <=
+        curr.reduce((total, p) => total + p.rating, 0)
+        ? prev
+        : curr;
+    });
+
+    // Add a random player to the lowest team
+    const randomIndex = Math.floor(Math.random() * sortedPlayers.length);
+    const player = sortedPlayers.splice(randomIndex, 1)[0];
+
+    lowestTeam.push(player);
   }
 
-  return teams;
+  let response = {};
+
+  teams.forEach((playerTeam, index) => {
+    response[`Equipa ${getAlphabetCharacterBasedOnNumber(index)}`] = _(
+      playerTeam
+    )
+      .orderBy((player) => player.name)
+      .map((player) => player.name)
+      .value();
+  });
+
+  if (playersToIgnore?.length > 0) {
+    response[NO_TEAM] = playersToIgnore;
+  }
+
+  return response;
 };
 
 export { generateTeam };

@@ -18,9 +18,9 @@ const onGenerateTeamHandler = (request) => {
   // If there any players to ignore, check against the .env player names and ignore those that are in the players ignore array.
   if (request.playersToIgnore) {
     teamPlayersToUse = teamPlayersToUse.filter(
-      (tp) =>
+      (player) =>
         !request.playersToIgnore.some(
-          (pi) => pi.toLowerCase() === tp.toLowerCase()
+          (playerToIgnore) => playerToIgnore.toLowerCase() === player.name.toLowerCase()
         )
     );
   }
