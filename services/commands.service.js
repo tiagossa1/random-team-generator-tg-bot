@@ -1,10 +1,7 @@
-import getEnvironmentVariables from "../configs/environment.js";
 import { generateTeam } from "./team.service.js";
 import { generateReadableTeamsMessage } from "../utils/output.utils.js";
 import GenerateTeamHandlerResponse from "../models/generateTeamHandlerResponse.js";
 import validate from "../validators/generateTeamHandler.validator.js";
-
-const { teamPlayers } = getEnvironmentVariables();
 
 const onGenerateTeamHandler = (request) => {
   const validatorResponse = validate(request.numberOfTeams);
@@ -13,11 +10,11 @@ const onGenerateTeamHandler = (request) => {
     return validatorResponse;
   }
 
-  let teamPlayersToUse = [...teamPlayers];
+  let playersToUse = [...request.players];
 
   // If there any players to ignore, check against the .env player names and ignore those that are in the players ignore array.
   if (request.playersToIgnore) {
-    teamPlayersToUse = teamPlayersToUse.filter(
+    playersToUse = playersToUse.filter(
       (player) =>
         !request.playersToIgnore.some(
           (playerToIgnore) => playerToIgnore.toLowerCase() === player.name.toLowerCase()
@@ -27,7 +24,7 @@ const onGenerateTeamHandler = (request) => {
 
   let teams = generateTeam(
     request.numberOfTeams,
-    teamPlayersToUse,
+    playersToUse,
     request.playersToIgnore
   );
 

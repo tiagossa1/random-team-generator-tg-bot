@@ -1,9 +1,10 @@
 class GenerateTeamHandlerRequest {
-  constructor(chatId, userInformation, numberOfTeams = 2, playersToIgnore = []) {
+  constructor(chatId, userInformation, players, numberOfTeams = 2, playersToIgnore = []) {
     this.chatId = chatId;
+    this.userInformation = userInformation;
+    this.players = players;
     this.numberOfTeams = numberOfTeams;
     this.playersToIgnore = playersToIgnore;
-    this.userInformation = userInformation;
   }
 }
 

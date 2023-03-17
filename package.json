@@ -21,6 +21,7 @@
   "homepage": "https://github.com/tiagossa1/random-team-generator-tg-bot#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
+    "jsonfile": "^6.1.0",
     "lodash": "^4.17.21",
     "nodemon": "^2.0.21",
     "telegraf": "^4.12.2",

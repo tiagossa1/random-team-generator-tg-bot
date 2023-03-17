@@ -1,15 +1,21 @@
-import getEnvironmentVariables from "./configs/environment.js";
 import { Telegraf } from "telegraf";
 import rateLimit from "telegraf-ratelimit";
+import jsonFile from "jsonfile";
+
+import getEnvironmentVariables from "./configs/environment.js";
 import rateLimitConfiguration from "./configs/rateLimit.js";
 import logger from "./configs/logger.js";
 
 import GenerateTeamHandlerRequest from "./models/generateTeamHandlerRequest.js";
 import UserInformation from "./models/userInformation.js";
-import { onGenerateTeamHandler } from "./services/commands.service.js";
+import PlayerInfo from "./models/playerInfo.js";
+
 import { validateUserOrChat } from "./middleware/telegraf.middleware.js";
 
+import { onGenerateTeamHandler } from "./services/commands.service.js";
+
 const envVars = getEnvironmentVariables();
+const players = jsonFile.readFileSync("teamPlayers.json");
 
 const bot = new Telegraf(envVars.token);
 
@@ -41,6 +47,7 @@ bot.hears(generateTeamRegEx, (ctx) => {
   const request = new GenerateTeamHandlerRequest(
     ctx.chat.id,
     userInformation,
+    players.map((player) => new PlayerInfo(player.name, player.rating)),
     numberOfTeams,
     playersToIgnore
   );
