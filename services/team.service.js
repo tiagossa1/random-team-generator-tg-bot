@@ -4,32 +4,38 @@ import _ from "lodash";
 
 const NO_TEAM = "De fora";
 
+// The above code works by sorting the players by their rating in descending order, and then assigning them to teams in a round-robin fashion, with each team getting one player at a time until all the players are assigned. 
+// The currentTeam variable keeps track of the index of the team to which the next player should be assigned in a round-robin fashion.
+
 const generateTeam = (numberOfTeams, teamPlayers, playersToIgnore) => {
   // Sort players by rating in descending order
   const sortedPlayers = _(teamPlayers)
-    .sortBy((player) => player.rating)
+    .sortBy((player) => -player.rating)
     .value();
+
+  const playersPerTeam = Math.floor(sortedPlayers.length / numberOfTeams);
+  const remainder = sortedPlayers.length % numberOfTeams;
 
   const teams = [];
   for (let i = 0; i < numberOfTeams; i++) {
     teams.push([]);
   }
 
-  // Assign players to teams based on the lowest total rating
-  while (sortedPlayers.length > 0) {
-    // Find the team with the lowest total rating
-    const lowestTeam = teams.reduce((prev, curr) => {
-      return prev.reduce((total, p) => total + p.rating, 0) <=
-        curr.reduce((total, p) => total + p.rating, 0)
-        ? prev
-        : curr;
-    });
+  // Assign players to teams in a round-robin fashion
+  let currentTeam = 0;
+  for (let i = 0; i < sortedPlayers.length; i++) {
+    const player = sortedPlayers[i];
+    teams[currentTeam].push(player);
+    currentTeam = (currentTeam + 1) % numberOfTeams;
+  }
 
-    // Add a random player to the lowest team
-    const randomIndex = Math.floor(Math.random() * sortedPlayers.length);
-    const player = sortedPlayers.splice(randomIndex, 1)[0];
-
-    lowestTeam.push(player);
+  // If there is a remainder, distribute the remaining players evenly among the teams
+  if (remainder > 0) {
+    let i = 0;
+    while (i < remainder) {
+      teams[i].push(sortedPlayers.pop());
+      i++;
+    }
   }
 
   let response = {};

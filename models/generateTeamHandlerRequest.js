@@ -3,7 +3,7 @@ class GenerateTeamHandlerRequest {
     this.chatId = chatId;
     this.userInformation = userInformation;
     this.players = players;
-    this.numberOfTeams = numberOfTeams;
+    this.numberOfTeams = Number(numberOfTeams);
     this.playersToIgnore = playersToIgnore;
   }
 }
