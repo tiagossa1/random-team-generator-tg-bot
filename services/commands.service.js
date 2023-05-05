@@ -17,7 +17,8 @@ const onGenerateTeamHandler = (request) => {
     playersToUse = playersToUse.filter(
       (player) =>
         !request.playersToIgnore.some(
-          (playerToIgnore) => playerToIgnore.toLowerCase() === player.name.toLowerCase()
+          (playerToIgnore) =>
+            playerToIgnore.toLowerCase() === player.name.toLowerCase()
         )
     );
   }

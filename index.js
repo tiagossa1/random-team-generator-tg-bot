@@ -63,7 +63,7 @@ bot.hears(generateTeamRegEx, (ctx) => {
     return;
   }
 
-  logger.info(`Generated the following team: ${JSON.stringify(response.data)}`);
+  logger.info(`Generated the following team: ${response.data}`);
   ctx.replyWithMarkdownV2(response.data);
 });
 

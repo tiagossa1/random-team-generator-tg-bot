@@ -4,56 +4,81 @@ import _ from "lodash";
 
 const NO_TEAM = "De fora";
 
-// The above code works by sorting the players by their rating in descending order, and then assigning them to teams in a round-robin fashion, with each team getting one player at a time until all the players are assigned. 
-// The currentTeam variable keeps track of the index of the team to which the next player should be assigned in a round-robin fashion.
-
 const generateTeam = (numberOfTeams, teamPlayers, playersToIgnore) => {
-  // Sort players by rating in descending order
-  const sortedPlayers = _(teamPlayers)
-    .sortBy((player) => -player.rating)
+  const sortedPlayers = _(
+    _(teamPlayers)
+      .reject((player) => _(playersToIgnore).includes(player.name))
+      .value()
+  )
+    .orderBy(["rating"], ["desc"])
     .value();
 
-  const playersPerTeam = Math.floor(sortedPlayers.length / numberOfTeams);
-  const remainder = sortedPlayers.length % numberOfTeams;
+  const playersForEachTeam = Math.floor(sortedPlayers.length / numberOfTeams);
 
-  const teams = [];
+  const [firstPartOfPlayers, secondPartOfPlayers] = _(sortedPlayers)
+    .chunk(Math.floor(sortedPlayers.length / 2))
+    .value();
+
+  const teams = {};
+
   for (let i = 0; i < numberOfTeams; i++) {
-    teams.push([]);
-  }
+    const key = `Equipa ${getAlphabetCharacterBasedOnNumber(i)}`;
+    teams[key] = [];
 
-  // Assign players to teams in a round-robin fashion
-  let currentTeam = 0;
-  for (let i = 0; i < sortedPlayers.length; i++) {
-    const player = sortedPlayers[i];
-    teams[currentTeam].push(player);
-    currentTeam = (currentTeam + 1) % numberOfTeams;
-  }
+    for (let j = 0; j < playersForEachTeam; j++) {
+      if (j % 2 !== 0) {
+        let player;
 
-  // If there is a remainder, distribute the remaining players evenly among the teams
-  if (remainder > 0) {
-    let i = 0;
-    while (i < remainder) {
-      teams[i].push(sortedPlayers.pop());
-      i++;
+        if (secondPartOfPlayers.length > 0) {
+          player = randomAndTakeFromTeam(secondPartOfPlayers);
+        } else {
+          player = randomAndTakeFromTeam(firstPartOfPlayers);
+        }
+
+        teams[key].push(player.name);
+      } else {
+        let player;
+
+        if (firstPartOfPlayers.length > 0) {
+          player = randomAndTakeFromTeam(firstPartOfPlayers);
+        } else {
+          player = randomAndTakeFromTeam(secondPartOfPlayers);
+        }
+
+        teams[key].push(player.name);
+      }
     }
   }
 
-  let response = {};
-
-  teams.forEach((playerTeam, index) => {
-    response[`Equipa ${getAlphabetCharacterBasedOnNumber(index)}`] = _(
-      playerTeam
+  const playersWithNoTeam = _(playersToIgnore ?? [])
+    .concat(
+      _(firstPartOfPlayers)
+        .map((player) => player.name)
+        .value(),
+      _(secondPartOfPlayers)
+        .map((player) => player.name)
+        .value()
     )
-      .orderBy((player) => player.name)
-      .map((player) => player.name)
-      .value();
-  });
+    .value();
 
-  if (playersToIgnore?.length > 0) {
-    response[NO_TEAM] = playersToIgnore;
+  if (playersWithNoTeam?.length > 0) {
+    teams[NO_TEAM] = playersWithNoTeam;
   }
 
-  return response;
+  return teams;
+};
+
+const randomAndTakeFromTeam = (team) => {
+  const player = _(team).sample();
+  const indexToRemove = team.findIndex(
+    (p) => p.name === player.name && p.rating === player.rating
+  );
+
+  if (indexToRemove >= 0) {
+    team.splice(indexToRemove, 1);
+  }
+
+  return player;
 };
 
 export { generateTeam };
