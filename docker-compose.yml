@@ -1,4 +1,5 @@
 version: "3"
+name: "football-team-generator"
 services:
   football-team-generator-bot:
     restart: "always"
