@@ -3,11 +3,11 @@ name: "football-team-generator"
 services:
   football-team-generator-bot:
     restart: "always"
-    args:
-      - IS_PRODUCTION=true
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - IS_PRODUCTION=true
     ports:
       - "8080:8080"
     env_file:
