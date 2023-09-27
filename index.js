@@ -22,12 +22,9 @@ const watcher = chokidar.watch(jsonFilePath);
 
 watcher.on("change", () => {
   players = readFile(jsonFilePath);
-  console.log(players);
 });
 
 players = readFile(jsonFilePath);
-
-console.log(players);
 
 const envVars = getEnvironmentVariables();
 

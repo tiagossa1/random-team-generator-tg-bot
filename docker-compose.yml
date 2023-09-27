@@ -1,0 +1,13 @@
+version: "3"
+services:
+  football-team-generator-bot:
+    restart: "always"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./src/.env
+    volumes:
+      - ./data:/usr/src/app/data\
