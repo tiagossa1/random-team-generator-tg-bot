@@ -16,7 +16,7 @@ const generateTeam = (numberOfTeams, teamPlayers, playersToIgnore) => {
   const playersForEachTeam = Math.floor(sortedPlayers.length / numberOfTeams);
 
   const [firstPartOfPlayers, secondPartOfPlayers] = _(sortedPlayers)
-    .chunk(Math.floor(sortedPlayers.length / 2))
+    .chunk(Math.ceil(sortedPlayers.length / 2))
     .value();
 
   const teams = {};

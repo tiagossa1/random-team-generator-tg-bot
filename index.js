@@ -1,6 +1,7 @@
 import { Telegraf } from "telegraf";
 import rateLimit from "telegraf-ratelimit";
-import jsonFile from "jsonfile";
+import chokidar from "chokidar";
+import fs from "fs";
 
 import getEnvironmentVariables from "./configs/environment.js";
 import rateLimitConfiguration from "./configs/rateLimit.js";
@@ -11,11 +12,24 @@ import UserInformation from "./models/userInformation.js";
 import PlayerInfo from "./models/playerInfo.js";
 
 import { validateUserOrChat } from "./middleware/telegraf.middleware.js";
-
 import { onGenerateTeamHandler } from "./services/commands.service.js";
+import { readFile } from "./services/file.service.js";
+
+let players = [];
+
+const jsonFilePath = "data/teamPlayers.json";
+const watcher = chokidar.watch(jsonFilePath);
+
+watcher.on("change", () => {
+  players = readFile(jsonFilePath);
+  console.log(players);
+});
+
+players = readFile(jsonFilePath);
+
+console.log(players);
 
 const envVars = getEnvironmentVariables();
-const players = jsonFile.readFileSync("teamPlayers.json");
 
 const bot = new Telegraf(envVars.token);
 
@@ -47,7 +61,7 @@ bot.hears(generateTeamRegEx, (ctx) => {
   const request = new GenerateTeamHandlerRequest(
     ctx.chat.id,
     userInformation,
-    players.map((player) => new PlayerInfo(player.name, player.rating)),
+    players,
     numberOfTeams,
     playersToIgnore
   );
