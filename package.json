@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/tiagossa1/random-team-generator-tg-bot#readme",
   "dependencies": {
+    "@types/node": "^20.8.0",
     "chokidar": "^3.5.3",
     "dotenv": "^16.0.3",
     "lodash": "^4.17.21",
@@ -28,5 +29,8 @@
     "telegraf-ratelimit": "^2.0.0",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "@telegraf/types": "^6.9.1"
   }
 }

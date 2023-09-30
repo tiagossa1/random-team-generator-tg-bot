@@ -1,10 +1,10 @@
 import { Telegraf } from "telegraf";
-import rateLimit from "telegraf-ratelimit";
+// import rateLimit from "telegraf-ratelimit";
 import chokidar from "chokidar";
 import fs from "fs";
 
 import getEnvironmentVariables from "./configs/environment.js";
-import rateLimitConfiguration from "./configs/rateLimit.js";
+// import rateLimitConfiguration from "./configs/rateLimit.js";
 import logger from "./configs/logger.js";
 
 import GenerateTeamHandlerRequest from "./models/generateTeamHandlerRequest.js";
@@ -34,7 +34,7 @@ const bot = new Telegraf(envVars.token);
 // validateUserOrChat - Will validate if the user/chat ID is in the allowed IDs.
 // rateLimit - Will rate limit all of the bot's actions against possible hacker attack.
 bot.use(validateUserOrChat);
-bot.use(rateLimit(rateLimitConfiguration));
+// bot.use(rateLimit(rateLimitConfiguration));
 
 const generateTeamRegEx = new RegExp(
   `/${envVars.generateCommand} (\\d+)(\\s)?(.+)?`
