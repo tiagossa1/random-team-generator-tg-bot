@@ -1,9 +1,12 @@
 import { generateTeam } from "./team.service.js";
 import { generateReadableTeamsMessage } from "../utils/output.utils.js";
-import GenerateTeamHandlerResponse from "../models/generateTeamHandlerResponse.js";
+import GenerateTeamHandlerResponse from "../classes/generateTeamHandlerResponse.js";
 import validate from "../validators/generateTeamHandler.validator.js";
+import GenerateTeamHandlerRequest from "../interfaces/generateTeamHandlerRequest.js";
 
-const onGenerateTeamHandler = (request) => {
+const onGenerateTeamHandler = (
+  request: GenerateTeamHandlerRequest
+): GenerateTeamHandlerResponse<string> => {
   const validatorResponse = validate(request.numberOfTeams);
 
   if (!validatorResponse.success) {
@@ -29,10 +32,10 @@ const onGenerateTeamHandler = (request) => {
     request.playersToIgnore
   );
 
-  return new GenerateTeamHandlerResponse({
-    data: generateReadableTeamsMessage(teams),
+  return {
     success: true,
-  });
+    data: generateReadableTeamsMessage(teams),
+  };
 };
 
 export { onGenerateTeamHandler };

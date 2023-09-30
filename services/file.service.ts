@@ -1,8 +1,8 @@
 import fs from "fs";
 import logger from "../configs/logger.js";
-import PlayerInfo from "../models/playerInfo.js";
+import PlayerInfo from "../interfaces/playerInfo.js";
 
-const readFile = (jsonFilePath: string) => {
+const readFile = (jsonFilePath: string): PlayerInfo[] => {
   try {
     const fileContent = fs.readFileSync(jsonFilePath, "utf-8");
     if (!fileContent) {
@@ -11,7 +11,10 @@ const readFile = (jsonFilePath: string) => {
 
     return JSON.parse(fileContent).map(
       (player: { name: string; rating: number }) =>
-        new PlayerInfo(player.name, player.rating)
+        <PlayerInfo>{
+          name: player.name,
+          rating: player.rating,
+        }
     );
   } catch (error) {
     console.error("There was an error reading from the JSON file: ", error);

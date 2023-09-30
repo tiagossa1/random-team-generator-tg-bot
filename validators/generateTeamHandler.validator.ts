@@ -1,16 +1,20 @@
-import GenerateTeamHandlerResponse from "../models/generateTeamHandlerResponse.js";
+import GenerateTeamHandlerResponse from "../classes/generateTeamHandlerResponse.js";
 
-const validate = (numberOfTeams) => {
+const validate = (
+  numberOfTeams: number
+): GenerateTeamHandlerResponse<string> => {
   if (numberOfTeams <= 0) {
-    return new GenerateTeamHandlerResponse({
+    return {
       success: false,
       error: `Invalid number of team: ${numberOfTeams}.`,
-    });
+      data: "",
+    };
   }
 
-  return new GenerateTeamHandlerResponse({
+  return {
     success: true,
-  });
+    data: "",
+  };
 };
 
 export default validate;

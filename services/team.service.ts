@@ -1,10 +1,15 @@
+import PlayerInfo from "../interfaces/playerInfo.js";
 import { getAlphabetCharacterBasedOnNumber } from "../utils/number.utils.js";
 
 import _ from "lodash";
 
 const NO_TEAM = "De fora";
 
-const generateTeam = (numberOfTeams, teamPlayers, playersToIgnore) => {
+const generateTeam = (
+  numberOfTeams: number,
+  teamPlayers: PlayerInfo[],
+  playersToIgnore: string[]
+) => {
   const sortedPlayers = _(
     _(teamPlayers)
       .reject((player) => _(playersToIgnore).includes(player.name))
@@ -19,7 +24,7 @@ const generateTeam = (numberOfTeams, teamPlayers, playersToIgnore) => {
     .chunk(Math.ceil(sortedPlayers.length / 2))
     .value();
 
-  const teams = {};
+  const teams: Record<string, string[]> = {};
 
   for (let i = 0; i < numberOfTeams; i++) {
     const key = `Equipa ${getAlphabetCharacterBasedOnNumber(i)}`;
@@ -37,7 +42,7 @@ const generateTeam = (numberOfTeams, teamPlayers, playersToIgnore) => {
 
         teams[key].push(player.name);
       } else {
-        let player;
+        let player: PlayerInfo;
 
         if (firstPartOfPlayers.length > 0) {
           player = randomAndTakeFromTeam(firstPartOfPlayers);
@@ -68,8 +73,9 @@ const generateTeam = (numberOfTeams, teamPlayers, playersToIgnore) => {
   return teams;
 };
 
-const randomAndTakeFromTeam = (team) => {
-  const player = _(team).sample();
+const randomAndTakeFromTeam = (team: PlayerInfo[]): PlayerInfo => {
+  const player = <PlayerInfo>_(team).sample();
+
   const indexToRemove = team.findIndex(
     (p) => p.name === player.name && p.rating === player.rating
   );

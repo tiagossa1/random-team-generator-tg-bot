@@ -31,6 +31,7 @@
     "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
-    "@telegraf/types": "^6.9.1"
+    "@telegraf/types": "^6.9.1",
+    "@types/lodash": "^4.14.199"
   }
 }

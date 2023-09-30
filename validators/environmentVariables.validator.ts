@@ -1,4 +1,4 @@
-const validate = (token) => {
+const validate = (token: string) => {
   if (!token) {
     throw new Error("Token is required.");
   }

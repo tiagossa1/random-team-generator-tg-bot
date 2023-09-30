@@ -1,21 +1,20 @@
 import { Telegraf } from "telegraf";
 // import rateLimit from "telegraf-ratelimit";
 import chokidar from "chokidar";
-import fs from "fs";
 
 import getEnvironmentVariables from "./configs/environment.js";
 // import rateLimitConfiguration from "./configs/rateLimit.js";
 import logger from "./configs/logger.js";
 
-import GenerateTeamHandlerRequest from "./models/generateTeamHandlerRequest.js";
-import UserInformation from "./models/userInformation.js";
-import PlayerInfo from "./models/playerInfo.js";
+import GenerateTeamHandlerRequest from "./interfaces/generateTeamHandlerRequest.js";
+import UserInformation from "./classes/userInformation.js";
 
 import { validateUserOrChat } from "./middleware/telegraf.middleware.js";
 import { onGenerateTeamHandler } from "./services/commands.service.js";
 import { readFile } from "./services/file.service.js";
+import PlayerInfo from "./interfaces/playerInfo.js";
 
-let players = [];
+let players: PlayerInfo[] = [];
 
 const jsonFilePath = "data/teamPlayers.json";
 const watcher = chokidar.watch(jsonFilePath);
@@ -40,28 +39,33 @@ const generateTeamRegEx = new RegExp(
   `/${envVars.generateCommand} (\\d+)(\\s)?(.+)?`
 );
 
-bot.catch((err, ctx) => {
+bot.catch((err) => {
   logger.error(`There was an error: ${err}`);
 });
 
 bot.hears(generateTeamRegEx, (ctx) => {
   const userInformation = new UserInformation(
     ctx.from.id,
-    ctx.from.user_name,
+    ctx.from.username ?? "",
     ctx.from.first_name,
-    ctx.from.last_name
+    ctx.from.last_name ?? ""
   );
 
-  const numberOfTeams = ctx.match[1];
+  // TODO: There should be a service that gets all the message parameters in a nice format and type.
+  const numberOfTeams =
+    typeof ctx.match[1] === "string" && !Number.isNaN(ctx.match[1])
+      ? Number(ctx.match[1])
+      : 2;
+
   const playersToIgnore = ctx.match[3]?.split(" ")?.filter((player) => player);
 
-  const request = new GenerateTeamHandlerRequest(
-    ctx.chat.id,
-    userInformation,
-    players,
-    numberOfTeams,
-    playersToIgnore
-  );
+  const request: GenerateTeamHandlerRequest = {
+    chatId: ctx.chat.id,
+    userInformation: userInformation,
+    players: players,
+    numberOfTeams: numberOfTeams,
+    playersToIgnore: playersToIgnore,
+  };
 
   logger.info(
     `Received a request to generate teams from user ${userInformation.fullName} (${userInformation.userName}) (${request.chatId}).`
@@ -75,7 +79,7 @@ bot.hears(generateTeamRegEx, (ctx) => {
   }
 
   logger.info(`Generated the following team: ${response.data}`);
-  ctx.replyWithMarkdownV2(response.data);
+  ctx.replyWithMarkdownV2(response.data ?? "");
 });
 
 bot.launch();

@@ -1,7 +1,7 @@
 import getEnvironmentVariables from "../configs/environment.js";
 import logger from "../configs/logger.js";
 
-const validateUserOrChat = (ctx, next) => {
+const validateUserOrChat = (ctx: any, next: any) => {
   const { allowedIds, isProduction } = getEnvironmentVariables();
 
   if (!allowedIds.includes(ctx.from.id) || !allowedIds.includes(ctx.chat.id)) {

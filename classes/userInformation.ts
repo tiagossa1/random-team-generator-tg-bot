@@ -1,7 +1,18 @@
 import { getUserFullName } from "../utils/user.utils.js";
 
 class UserInformation {
-  constructor(id, userName, firstName, lastName) {
+  id: number | null;
+  userName: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+
+  constructor(
+    id: number | null,
+    userName: string,
+    firstName: string,
+    lastName: string
+  ) {
     this.id = id ?? null;
     this.userName = userName ?? "no username available";
     this.firstName = firstName ?? "";
