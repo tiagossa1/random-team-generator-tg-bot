@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx tsc && cp -R ./data ./dist | true && cp ./.env ./dist | true",
+    "dev": "nodemon --watch './**/*.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm index.ts' index.ts",
+    "start": "npm run build && node ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,11 +20,9 @@
   },
   "homepage": "https://github.com/tiagossa1/random-team-generator-tg-bot#readme",
   "dependencies": {
-    "@types/node": "^20.8.0",
     "chokidar": "^3.5.3",
     "dotenv": "^16.0.3",
     "lodash": "^4.17.21",
-    "nodemon": "^3.0.1",
     "telegraf": "^4.12.2",
     "telegraf-ratelimit": "^2.0.0",
     "winston": "^3.8.2",
@@ -32,6 +30,10 @@
   },
   "devDependencies": {
     "@telegraf/types": "^6.9.1",
-    "@types/lodash": "^4.14.199"
+    "@types/lodash": "^4.14.199",
+    "@types/node": "^20.8.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
