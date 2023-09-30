@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npx tsc && [ -d ./data ] && cp -R ./data ./dist && [ -f ./.env ] && cp ./.env ./dist",
+    "build": "npx tsc",
     "dev": "nodemon --watch './**/*.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm index.ts' index.ts",
-    "start": "npm run build && node ./dist/index.js"
+    "start": "npm run build && [ -d ./data ] && cp -R ./data ./dist && [ -f ./.env ] && cp ./.env ./dist && node ./dist/index.js"
   },
   "repository": {
     "type": "git",
