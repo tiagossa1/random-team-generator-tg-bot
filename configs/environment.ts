@@ -17,10 +17,12 @@ const getEnvironmentVariables = (): EnvironmentVariables => {
     process.env.ALLOWED_IDS?.split(",")
       .filter((id) => isNumber(id))
       .map((id) => Number(id)) ?? [];
+
   const isProduction =
     typeof process.env.IS_PRODUCTION === "string"
       ? Boolean(process.env.IS_PRODUCTION)
       : true;
+      
   const defaultNumberOfTeams = isNumber(
     process.env.DEFAULT_NUMBER_OF_TEAMS ?? ""
   )
