@@ -1,5 +1,5 @@
-import EnvironmentVariables from "../interfaces/environmentVariables.js";
-import validate from "../validators/environmentVariables.validator.js";
+import EnvironmentVariables from "../interfaces/environment-variables.js";
+import validate from "../validators/environment-variables.js";
 import path from "path";
 import { fileURLToPath } from "url";
 

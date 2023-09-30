@@ -1,5 +1,5 @@
-import PlayerInfo from "../interfaces/playerInfo.js";
-import { getAlphabetCharacterBasedOnNumber } from "../utils/number.utils.js";
+import PlayerInfo from "../interfaces/player-info.js";
+import { getAlphabetCharacterBasedOnNumber } from "../utils/number.js";
 
 import _ from "lodash";
 

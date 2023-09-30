@@ -1,4 +1,4 @@
-import GenerateTeamHandlerResponse from "../classes/generateTeamHandlerResponse.js";
+import GenerateTeamHandlerResponse from "../classes/generate-team-handler-response.js";
 
 const validate = (
   numberOfTeams: number

@@ -1,6 +1,6 @@
 import fs from "fs";
 import logger from "../configs/logger.js";
-import PlayerInfo from "../interfaces/playerInfo.js";
+import PlayerInfo from "../interfaces/player-info.js";
 
 const readFile = (jsonFilePath: string): PlayerInfo[] => {
   try {

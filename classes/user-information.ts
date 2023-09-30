@@ -1,4 +1,4 @@
-import { getUserFullName } from "../utils/user.utils.js";
+import { getUserFullName } from "../utils/user.js";
 
 class UserInformation {
   id: number | null;

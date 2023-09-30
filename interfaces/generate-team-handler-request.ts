@@ -1,5 +1,5 @@
-import UserInformation from "../classes/userInformation.js";
-import PlayerInfo from "./playerInfo.js";
+import UserInformation from "../classes/user-information.js";
+import PlayerInfo from "./player-info.js";
 
 export default interface GenerateTeamHandlerRequest {
   chatId: number;

@@ -1,8 +1,8 @@
-import { generateTeam } from "./team.service.js";
-import { generateReadableTeamsMessage } from "../utils/output.utils.js";
-import GenerateTeamHandlerResponse from "../classes/generateTeamHandlerResponse.js";
-import validate from "../validators/generateTeamHandler.validator.js";
-import GenerateTeamHandlerRequest from "../interfaces/generateTeamHandlerRequest.js";
+import { generateTeam } from "./team.js";
+import { generateReadableTeamsMessage } from "../utils/output.js";
+import GenerateTeamHandlerResponse from "../classes/generate-team-handler-response.js";
+import validate from "../validators/generate-team-handler.js";
+import GenerateTeamHandlerRequest from "../interfaces/generate-team-handler-request.js";
 
 const onGenerateTeamHandler = (
   request: GenerateTeamHandlerRequest

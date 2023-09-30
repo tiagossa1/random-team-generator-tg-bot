@@ -1,18 +1,16 @@
 import { Telegraf } from "telegraf";
-// import rateLimit from "telegraf-ratelimit";
 import chokidar from "chokidar";
 
 import getEnvironmentVariables from "./configs/environment.js";
-// import rateLimitConfiguration from "./configs/rateLimit.js";
 import logger from "./configs/logger.js";
 
-import GenerateTeamHandlerRequest from "./interfaces/generateTeamHandlerRequest.js";
-import UserInformation from "./classes/userInformation.js";
+import GenerateTeamHandlerRequest from "./interfaces/generate-team-handler-request.js";
+import UserInformation from "./classes/user-information.js";
 
-import { validateUserOrChat } from "./middleware/telegraf.middleware.js";
-import { onGenerateTeamHandler } from "./services/commands.service.js";
-import { readFile } from "./services/file.service.js";
-import PlayerInfo from "./interfaces/playerInfo.js";
+import { validateUserOrChat } from "./middleware/telegraf.js";
+import { onGenerateTeamHandler } from "./services/commands.js";
+import { readFile } from "./services/file.js";
+import PlayerInfo from "./interfaces/player-info.js";
 
 let players: PlayerInfo[] = [];
 
@@ -31,9 +29,7 @@ const bot = new Telegraf(envVars.token);
 
 // Define middlewares:
 // validateUserOrChat - Will validate if the user/chat ID is in the allowed IDs.
-// rateLimit - Will rate limit all of the bot's actions against possible hacker attack.
 bot.use(validateUserOrChat);
-// bot.use(rateLimit(rateLimitConfiguration));
 
 const generateTeamRegEx = new RegExp(
   `/${envVars.generateCommand} (\\d+)(\\s)?(.+)?`
