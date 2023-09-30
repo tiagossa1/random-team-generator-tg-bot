@@ -22,6 +22,7 @@
 - **GENERATE_COMMAND**: Command keyword for generate command.
 - **TIMEZONE**: Time zone string. You can find [here](https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a) all of the time zones.
 - **LANGUAGE**: Full language code. e.g. en-US.
+- **IS_PRODUCTION**: Flag to know if the bot is running in a production environment. Needed for logs level.
 
 ## Bot commands
 
@@ -33,30 +34,27 @@
 npm install
 ```
 
+## Build
+
+```sh
+npm run build
+```
+
 ## Usage
 
 ```sh
 npm run dev
 ```
 
-## Run tests
+## Start
 
 ```sh
-npm test
+npm run start
 ```
 
 ## Deploy
-
-## Build
-
 ```sh
-docker build . -t [name] --build-arg IS_PRODUCTION=[false/true]
-```
-
-## Run
-
-```sh
-docker run -p 49160:8080 -d [name]
+docker-compose up --build -d
 ```
 
 ## Author
@@ -75,7 +73,7 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2022 [Tiago Sá](https://github.com/tiagossa1).<br />
+Copyright © 2023 [Tiago Sá](https://github.com/tiagossa1).<br />
 This project is [ISC](https://github.com/tiagossa1/random-team-generator-tg-bot/blob/master/LICENSE) licensed.
 
 ---
