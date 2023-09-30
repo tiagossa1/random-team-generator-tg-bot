@@ -26,12 +26,11 @@ const logger = winston.createLogger({
       ),
     }),
     new winston.transports.Console({
-      format: format.combine(
-        format.timestamp({ format: timeZoneFormat }),
-        format.ms(),
-        format.errors({ stack: true }),
-        format.splat(),
-        format.json(),
+      level: isProduction ? "info" : "debug",
+      format: winston.format.combine(
+        winston.format.timestamp({ format: timeZoneFormat }),
+        winston.format.json(),
+        winston.format.prettyPrint(),
         format.colorize({ all: true })
       ),
     }),

@@ -11,6 +11,7 @@ import { validateUserOrChat } from "./middleware/telegraf.js";
 import { onGenerateTeamHandler } from "./services/commands.js";
 import { readFile } from "./services/file.js";
 import PlayerInfo from "./interfaces/player-info.js";
+import { getMessageParameters } from "./services/generate-team-message.js";
 
 let players: PlayerInfo[] = [];
 
@@ -23,16 +24,16 @@ watcher.on("change", () => {
 
 players = readFile(jsonFilePath);
 
-const envVars = getEnvironmentVariables();
+const environmentVariables = getEnvironmentVariables();
 
-const bot = new Telegraf(envVars.token);
+const bot = new Telegraf(environmentVariables.token);
 
 // Define middlewares:
 // validateUserOrChat - Will validate if the user/chat ID is in the allowed IDs.
 bot.use(validateUserOrChat);
 
 const generateTeamRegEx = new RegExp(
-  `/${envVars.generateCommand} (\\d+)(\\s)?(.+)?`
+  `/${environmentVariables.generateCommand} (\\d+)(\\s)?(.+)?`
 );
 
 bot.catch((err) => {
@@ -47,24 +48,23 @@ bot.hears(generateTeamRegEx, (ctx) => {
     ctx.from.last_name ?? ""
   );
 
-  // TODO: There should be a service that gets all the message parameters in a nice format and type.
-  const numberOfTeams =
-    typeof ctx.match[1] === "string" && !Number.isNaN(ctx.match[1])
-      ? Number(ctx.match[1])
-      : 2;
-
-  const playersToIgnore = ctx.match[3]?.split(" ")?.filter((player) => player);
+  const messageParameters = getMessageParameters(
+    ctx.match,
+    environmentVariables.defaultNumberOfTeams
+  );
 
   const request: GenerateTeamHandlerRequest = {
     chatId: ctx.chat.id,
     userInformation: userInformation,
     players: players,
-    numberOfTeams: numberOfTeams,
-    playersToIgnore: playersToIgnore,
+    numberOfTeams: messageParameters.numberOfTeams,
+    playersToIgnore: messageParameters.playerNamesToIgnore,
   };
 
   logger.info(
-    `Received a request to generate teams from user ${userInformation.fullName} (${userInformation.userName}) (${request.chatId}).`
+    `Received a request to generate teams from user/group ${
+      userInformation.fullName
+    } (${userInformation.userName ?? "no username"}) (${request.chatId}).`
   );
 
   const response = onGenerateTeamHandler(request);
@@ -74,7 +74,6 @@ bot.hears(generateTeamRegEx, (ctx) => {
     return;
   }
 
-  logger.info(`Generated the following team: ${response.data}`);
   ctx.replyWithMarkdownV2(response.data ?? "");
 });
 

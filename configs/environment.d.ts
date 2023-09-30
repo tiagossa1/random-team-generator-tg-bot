@@ -7,6 +7,9 @@ declare global {
       TIME_ZONE: string;
       TOKEN: string;
       IS_PRODUCTION: string;
+      DEFAULT_NUMBER_OF_TEAMS: string;
     }
   }
 }
+
+export {};

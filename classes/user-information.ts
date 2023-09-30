@@ -14,9 +14,9 @@ class UserInformation {
     lastName: string
   ) {
     this.id = id ?? null;
-    this.userName = userName ?? "no username available";
-    this.firstName = firstName ?? "";
-    this.lastName = lastName ?? "";
+    this.userName = userName ? userName : "no username available";
+    this.firstName = firstName ? firstName : "";
+    this.lastName = lastName ? lastName : "";
     this.fullName = getUserFullName(this.firstName, this.lastName);
   }
 }

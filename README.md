@@ -23,6 +23,7 @@
 - **TIMEZONE**: Time zone string. You can find [here](https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a) all of the time zones.
 - **LANGUAGE**: Full language code. e.g. en-US.
 - **IS_PRODUCTION**: Flag to know if the bot is running in a production environment. Needed for logs level.
+- **DEFAULT_NUMBER_OF_TEAMS**: Number of teams that the bot should generate if none is passed by the user. Default is 2.
 
 ## Bot commands
 
@@ -53,6 +54,7 @@ npm run start
 ```
 
 ## Deploy
+
 ```sh
 docker-compose up --build -d
 ```
