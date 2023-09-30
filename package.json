@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npx tsc && cp -R ./data ./dist | true && cp ./.env ./dist | true",
+    "build": "npx tsc && [ -d ./data ] && cp -R ./data ./dist && [ -f ./.env ] && cp ./.env ./dist",
     "dev": "nodemon --watch './**/*.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm index.ts' index.ts",
     "start": "npm run build && node ./dist/index.js"
   },
