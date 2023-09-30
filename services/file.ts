@@ -2,6 +2,12 @@ import fs from "fs";
 import logger from "../configs/logger.js";
 import PlayerInfo from "../interfaces/player-info.js";
 
+/**
+ * Reads player information from a JSON file and returns an array of PlayerInfo objects.
+ *
+ * @param {string} jsonFilePath - The path to the JSON file to read.
+ * @returns {PlayerInfo[]} An array of PlayerInfo objects parsed from the JSON file.
+ */
 const readFile = (jsonFilePath: string): PlayerInfo[] => {
   try {
     const fileContent = fs.readFileSync(jsonFilePath, "utf-8");

@@ -4,6 +4,12 @@ import GenerateTeamHandlerResponse from "../classes/generate-team-handler-respon
 import validate from "../validators/generate-team-handler.js";
 import GenerateTeamHandlerRequest from "../interfaces/generate-team-handler-request.js";
 
+/**
+ * Handles the generation of teams based on the provided request parameters.
+ *
+ * @param {GenerateTeamHandlerRequest} request - The request containing information for generating teams.
+ * @returns {GenerateTeamHandlerResponse<string>} The response containing the generated teams' message.
+ */
 const onGenerateTeamHandler = (
   request: GenerateTeamHandlerRequest
 ): GenerateTeamHandlerResponse<string> => {

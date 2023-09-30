@@ -1,5 +1,12 @@
 import GenerateTeamHandlerResponse from "../classes/generate-team-handler-response.js";
 
+/**
+ * Validates the number of teams for team generation.
+ *
+ * @param {number} numberOfTeams - The number of teams to validate.
+ * @returns {GenerateTeamHandlerResponse<string>} An object indicating the validation result.
+ * @throws {Error} Throws an error if the number of teams is invalid.
+ */
 const validate = (
   numberOfTeams: number
 ): GenerateTeamHandlerResponse<string> => {

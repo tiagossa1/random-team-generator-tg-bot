@@ -1,26 +1,26 @@
 /**
- * Returns each generated teams in a string format to be sent to the requestor.
- * 
- * String format:
- * 
- * Team A:
- * 
- * Player 1
- * 
- * Player 2
- * 
- * Player 3
- * 
- * 
- * Team B:
- * 
- * Player 1
- * 
- * Player 2
- * 
- * Player 3
- * @param teams Generated teams
- * @returns string
+ * Generates a human-readable message representing teams and their players.
+ *
+ * @param {Record<string, string[]>} teams - An object where keys are team names, and values are arrays of team players.
+ * @returns {string} A formatted message displaying the teams and their respective players.
+ *                  An empty string is returned if the input teams object is falsy.
+ *
+ * @example
+ * // Example usage:
+ * const teamsData = {
+ *   "Team A": ["Player 1", "Player 2"],
+ *   "Team B": ["Player 3", "Player 4"],
+ * };
+ * const message = generateReadableTeamsMessage(teamsData);
+ * // Output:
+ * // "*Team A:*
+ * // Player 1
+ * // Player 2
+ * //
+ * // *Team B:*
+ * // Player 3
+ * // Player 4
+ * //"
  */
 const generateReadableTeamsMessage = (teams: Record<string, string[]>) => {
   if (!teams) return "";

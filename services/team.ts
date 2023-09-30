@@ -5,6 +5,14 @@ import _ from "lodash";
 
 const NO_TEAM = "De fora";
 
+/**
+ * Generates teams from a list of players based on specified criteria.
+ *
+ * @param {number} numberOfTeams - The number of teams to generate.
+ * @param {PlayerInfo[]} teamPlayers - An array of player information to form teams.
+ * @param {string[]} playersToIgnore - An array of player names to exclude from team formation.
+ * @returns {Record<string, string[]>} An object representing teams with team names as keys and arrays of player names as values.
+ */
 const generateTeam = (
   numberOfTeams: number,
   teamPlayers: PlayerInfo[],
@@ -73,6 +81,12 @@ const generateTeam = (
   return teams;
 };
 
+/**
+ * Selects a random player from a team, removes them from the team, and returns the selected player.
+ *
+ * @param {PlayerInfo[]} team - The array of players representing the team.
+ * @returns {PlayerInfo} The randomly selected player from the team.
+ */
 const randomAndTakeFromTeam = (team: PlayerInfo[]): PlayerInfo => {
   const player = <PlayerInfo>_(team).sample();
 

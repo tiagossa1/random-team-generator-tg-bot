@@ -1,6 +1,12 @@
 import getEnvironmentVariables from "../configs/environment.js";
 import logger from "../configs/logger.js";
 
+/**
+ * Validates the user or chat context for team generation.
+ *
+ * @param {any} ctx - The context object containing user and chat information.
+ * @param {any} next - The next middleware function to call if validation succeeds.
+ */
 const validateUserOrChat = (ctx: any, next: any) => {
   const { allowedIds, isProduction } = getEnvironmentVariables();
 
