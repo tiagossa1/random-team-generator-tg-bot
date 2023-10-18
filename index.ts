@@ -33,7 +33,7 @@ const bot = new Telegraf(environmentVariables.token);
 bot.use(validateUserOrChat);
 
 const generateTeamRegEx = new RegExp(
-  `/${environmentVariables.generateCommand} (\\d+)(\\s)?(.+)?`
+  `/${environmentVariables.generateCommand} (\\d+)?(\\s)?(.+)?`
 );
 
 bot.catch((err) => {

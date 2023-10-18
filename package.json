@@ -25,15 +25,15 @@
     "lodash": "^4.17.21",
     "telegraf": "^4.12.2",
     "telegraf-ratelimit": "^2.0.0",
+    "typescript": "^5.2.2",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "@telegraf/types": "^6.9.1",
     "@types/lodash": "^4.14.199",
-    "@types/node": "^20.8.0",
+    "@types/node": "^20.8.7",
     "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "ts-node": "^10.9.1"
   }
 }

@@ -12,10 +12,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN if $IS_PRODUCTION ; then npm ci --only=production ; else npm install ; fi
+RUN npm i typescript
 
 # Bundle app source
 COPY . .
 
 EXPOSE 8080
 
-CMD node index.js
+CMD npm start
